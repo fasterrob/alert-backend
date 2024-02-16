@@ -1,12 +1,21 @@
 const Post = require("../../models/postModel");
 
-const newPost = (data) => {
+const newPost = (req) => {
+  let data = "";
+  let fileName = "";
+  if (typeof req.body.data === "string") {
+    data = JSON.parse(req.body.data);
+    fileName = req.file.filename;
+  } else {
+    data = req.body;
+    fileName = "";
+  }
   return new Promise(async (resolve, reject) => {
     const new_Post = new Post({
       userId: data.userId,
       avatar: data.avatar,
       name: data.name,
-      image: data.image,
+      image: fileName,
       content: data.content,
       comment: data.comment,
       lat: data.lat,
@@ -37,7 +46,17 @@ const updateLike = (req) => {
   });
 };
 
-
+const getPostsById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Post.find({ userId: id });
+      resolve(data);
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+};
 
 const getPosts = () => {
   return new Promise(async (resolve, reject) => {
@@ -58,4 +77,5 @@ module.exports = {
   getPosts,
   newPost,
   updateLike,
+  getPostsById,
 };

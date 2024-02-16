@@ -2,8 +2,7 @@ const service = require("./newPostService");
 
 const newPost = async (req, res) => {
   try {
-    const body = req.body;
-    const data = await service.newPost(body);
+    const data = await service.newPost(req);
     console.log(data)
     res.status(201).send(data);
   } catch (e) {
@@ -25,7 +24,19 @@ const getPosts = async (req, res) => {
   }
 };
 
+const getPostsById = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const response = await service.getPostsById(id);
+    res.status(200).send(response)
+  } catch (e) {
+    console.log(e)
+    res.status(500).send(e)
+  }
+}
+
 module.exports = {
   newPost,
   getPosts,
+  getPostsById,
 };
