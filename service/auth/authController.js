@@ -38,8 +38,19 @@ const getUsers = async (req, res) => {
   }
 };
 
+const removeUser = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const response = await service.removeUser(id);
+    res.status(200).send(response);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 module.exports = {
   createUser,
   getUser,
   getUsers,
+  removeUser,
 };

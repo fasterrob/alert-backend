@@ -22,9 +22,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    comment: {
-      type: Array,
+    verify: {
+      type: Boolean,
       require: true,
+      default: false,
     },
     lat: {
       type: Number,

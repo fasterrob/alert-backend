@@ -50,9 +50,21 @@ const getUsers = () => {
     }
   });
 };
+const removeUser = (id) => {
+  return new Promise(async (reslove, reject) => {
+    try {
+      const user = await Auth.deleteOne({ _id: id });
+      reslove(user);
+    } catch (err) {
+      console.log(err);
+      reject(err);
+    }
+  });
+};
 
 module.exports = {
   createNewUser,
   getUser,
   getUsers,
+  removeUser,
 };

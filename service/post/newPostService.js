@@ -73,9 +73,22 @@ const getPosts = () => {
   });
 };
 
+const removePost = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Post.deleteOne({ _id: id });
+      resolve(data);
+    } catch (err) {
+      console.log(err);
+      reject(err);
+    }
+  });
+};
+
 module.exports = {
   getPosts,
   newPost,
   updateLike,
   getPostsById,
+  removePost,
 };
